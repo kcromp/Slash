@@ -47,6 +47,16 @@ void ABird::MoveForward(float Value)
 	}
 }
 
+void ABird::Turn(float Value)
+{
+	AddControllerYawInput(Value);
+}
+
+void ABird::LookUp(float Value)
+{
+	AddControllerPitchInput(Value);
+}
+
 void ABird::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -56,9 +66,11 @@ void ABird::Tick(float DeltaTime)
 // Called to bind functionality to input
 void ABird::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	// override of parent function overrided from Pawn class (that is why Super:: is uesed) 
+	// override of parent function overrided from Pawn class (that is why Super:: is used) 
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	PlayerInputComponent->BindAxis(FName("MoveForward"), this, &ABird::MoveForward); // & address of operator (add address of a function as an input parameter) 
+	PlayerInputComponent->BindAxis(FName("Turn"), this, &ABird::Turn);
+	PlayerInputComponent->BindAxis(FName("LookUp"), this, &ABird::LookUp);
 }
 
